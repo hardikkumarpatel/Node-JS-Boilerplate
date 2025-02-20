@@ -11,4 +11,8 @@ const getDateTimeLocaleFormat = (date) => {
   return date.toLocaleString("en-US", options);
 };
 
-export { getDateTimeLocaleFormat };
+const date = () => {
+  return new Date(Date.now()).toISOString();
+};
+
+export { getDateTimeLocaleFormat, date };

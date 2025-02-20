@@ -1,3 +1,3 @@
-import { getDateTimeLocaleFormat } from "@/utils/dates/Date.utils";
+import { getDateTimeLocaleFormat, date } from "@/utils/dates/Date.utils";
 
-export { getDateTimeLocaleFormat };
+export { getDateTimeLocaleFormat, date };

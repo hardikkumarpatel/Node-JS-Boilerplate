@@ -14,7 +14,7 @@ class AppHelper {
         return process.exit(1);
 
       case "EADDRINUSE":
-        Log.error(`port ${Config.get(IConfig.PORT)} is already in use`);
+        Log.error(`PORT ${Config.get(IConfig.PORT)} is already in use`);
         return process.exit(1);
 
       default:
@@ -69,9 +69,6 @@ class AppHelper {
       Log.error(
         "The node env or PORT mapping is missing! Please check the .env file for the correct mapping."
       );
-      Log.error("x-----------------------------------------------x");
-      Log.error("x==================== ERROR ====================x");
-      Log.error("x-----------------------------------------------x");
       return false;
     }
     return true;

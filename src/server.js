@@ -1,6 +1,6 @@
-import ExpressEngine from "@/app";
+import App from "@/app";
 import { Log } from "@/helpers";
 
 (async () => {
-  await new ExpressEngine().run().catch(Log.error);
+  await new App().run().catch(Log.exit.bind(Log));
 })();

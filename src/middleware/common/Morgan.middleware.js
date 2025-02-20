@@ -8,11 +8,11 @@ class MorganLogMiddleware {
 
   success = morgan("short", {
     skip: (_, res) => res.statusCode >= 400,
-    stream: { write: Log.http }
+    stream: { write: Log.http.bind(Log) }
   });
   error = morgan("short", {
     skip: (_, res) => res.statusCode < 400,
-    stream: { write: Log.error }
+    stream: { write: Log.error.bind(Log) }
   });
 }
 

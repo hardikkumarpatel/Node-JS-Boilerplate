@@ -12,21 +12,22 @@ import { Config, IConfig } from "@/config";
 import { SwaggerApp } from "@/swagger";
 import { MongoDBConnection } from "@/database/mongodb";
 import { SequelizeDBConnection } from "@/database/sql";
-class ExpressEngine {
+
+class App {
   constructor() {
     this.app = express();
     this.PORT = Config.get(IConfig.PORT);
   }
 
   async run() {
-    await this.startApp().then(AppHelper.signalListening).catch(Log.error);
+    await this.startApp().then(AppHelper.signalListening).catch(Log.exit.bind(Log));
   }
 
   async startApp() {
     this.server = http.createServer(this.app);
     this.app.set("port", this.PORT);
     this.server.on("error", AppHelper.serverErrorListening);
-    this.server.on("close", Log.info);
+    this.server.on("close", Log.info.bind(Log));
     this.server.on("listening", async () => {
       await AppHelper.serverListening(this.server).then(this.initialize());
     });
@@ -66,11 +67,11 @@ class ExpressEngine {
   }
 
   async initializeSwaggerDocs() {
-    await new SwaggerApp(this.app).initialize().then(Log.info).catch(Log.error);
+    await new SwaggerApp(this.app).initialize().then(Log.info.bind(Log)).catch(Log.exit.bind(Log));
   }
 
   async initializeSocketApp() {
-    await new SocketAppHelper(this.server).initialize().then(Log.info).catch(Log.error);
+    await new SocketAppHelper(this.server).initialize().then(Log.info.bind(Log)).catch(Log.exit.bind(Log));
   }
 
   async initializeGlobalMiddleware() {
@@ -79,4 +80,4 @@ class ExpressEngine {
   }
 }
 
-export default ExpressEngine;
+export default App;
