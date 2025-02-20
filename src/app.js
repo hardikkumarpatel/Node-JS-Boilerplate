@@ -19,7 +19,6 @@ class ExpressEngine {
   }
 
   async run() {
-    if (!(await AppHelper.validate())) process.exit(1);
     await this.startApp().then(AppHelper.signalListening).catch(Log.error);
   }
 

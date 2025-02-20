@@ -17,3 +17,8 @@ trim_trailing_whitespace = false
 # Override settings for JSON files
 [*.json]
 indent_size = 4
+
+# Override settings for JavaScript files
+[*.js]
+indent_style = space
+indent_size = 2

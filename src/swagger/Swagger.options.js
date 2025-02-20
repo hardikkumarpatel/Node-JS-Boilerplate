@@ -8,7 +8,7 @@ export const SWAGGER_OPTIONS = {
     host: "",
     basePath: "",
     info: {
-      title: "TRIDHYA NODE BOILERPLATE ENGINE",
+      title: "NODE REST API BOILERPLATE ENGINE",
       version,
       description: "Swagger API Documentation for Node Boilerplate Engine",
       license: {

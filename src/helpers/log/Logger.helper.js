@@ -12,7 +12,7 @@ class LoggerHelper {
       format: winston.format.combine(
         winston.format.colorize({
           level: true,
-          message: true,
+          message: false,
           colors: {
             error: "red",
             info: "green",
