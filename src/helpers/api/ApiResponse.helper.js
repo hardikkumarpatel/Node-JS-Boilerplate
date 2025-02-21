@@ -3,11 +3,9 @@ class ApiResponseHelper {
     this.success = true;
     this.statusCode = statusCode;
     this.message = message;
-    this.error = null;
-    this.result = {
-      timestamp: Date.now(),
-      data
-    };
+    this.timestamp = Date.now();
+    this.errors = null;
+    this.data = data
   }
 
   // NOTHING TO DO

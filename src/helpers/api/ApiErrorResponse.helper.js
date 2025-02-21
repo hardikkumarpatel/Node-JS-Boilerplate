@@ -16,7 +16,8 @@ class ApiErrorResponseHelper extends Error {
     this.success = false;
     this.statusCode = statusCode;
     this.message = message;
-    this.result = null;
+    this.timestamp = Date.now();
+    this.data = null;
     this.errors = [
       {
         message: errors,
