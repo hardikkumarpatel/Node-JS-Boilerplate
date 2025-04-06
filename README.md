@@ -60,7 +60,7 @@ docker build -t node-app .
 - Run the build image as docker container.
 
 ```bash
- docker run -p 3001:3001 node-app
+ docker run -d -p 3010:3010 node-app
 ```
 
 - Verify the Application.

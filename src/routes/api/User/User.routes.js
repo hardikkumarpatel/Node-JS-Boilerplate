@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { UserController } from "@/controller";
 import { ApiAuthMiddleware, ApiRoleMiddleware } from "@/middleware";
-import { Permissions } from "@/config/role/Roles.config";
 import UploadMiddleware from "@/middleware/common/Upload.middleware";
+import { Permissions } from "@/constant";
 const UserRoutes = Router();
 
 UserRoutes.use(ApiAuthMiddleware.use);

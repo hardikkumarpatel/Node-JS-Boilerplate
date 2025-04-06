@@ -5,7 +5,7 @@ class ApiResponseHelper {
     this.message = message;
     this.timestamp = Date.now();
     this.errors = null;
-    this.data = data
+    this.data = data;
   }
 
   // NOTHING TO DO

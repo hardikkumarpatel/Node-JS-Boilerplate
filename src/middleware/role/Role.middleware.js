@@ -3,7 +3,7 @@ import { getReasonPhrase, StatusCodes } from "http-status-codes";
 
 class ApiRoleMiddleware {
   static role = (permission) =>
-    ApiAsyncHelper.AsyncHandlerHelper(async (req, res, next) => {
+    ApiAsyncHelper.AsyncHandler(async (req, res, next) => {
       const role = req?.entity?.user ? "bold" : "ANONYMOUES";
       const permissions = await new PermissionsHelper().getPermissionsByRoleName(role);
       if (permissions.includes(permission)) {

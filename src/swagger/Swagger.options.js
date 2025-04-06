@@ -1,6 +1,8 @@
-import { Config, IConfig } from "@/config";
 import { version } from "../../package.json";
-const PORT = Config.get(IConfig.PORT);
+
+import { Config } from "@/config";
+import { Env } from "@/constant";
+const PORT = Config.getEnv(Env.PORT);
 
 export const SWAGGER_OPTIONS = {
   definition: {

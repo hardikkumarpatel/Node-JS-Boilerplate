@@ -5,22 +5,28 @@ import cors from "cors";
 import path from "path";
 import helmet from "helmet";
 import cookies from "cookie-parser";
-import { ApiCommonHelper, AppHelper, Log, SocketAppHelper } from "@/helpers";
+import { ApiCommonHelper, AppHelper, Log, SocketServer } from "@/helpers";
 import { ApiErrorMiddleware, MorganLogMiddleware } from "@/middleware";
 import routes from "@/routes";
-import { Config, IConfig } from "@/config";
+import { Config } from "@/config";
 import { SwaggerApp } from "@/swagger";
+import { Env } from "@/constant";
 import { MongoDBConnection } from "@/database/mongodb";
 import { SequelizeDBConnection } from "@/database/sql";
 
 class App {
   constructor() {
     this.app = express();
-    this.PORT = Config.get(IConfig.PORT);
+    this.PORT = Config.getEnv(Env.PORT);
   }
 
   async run() {
-    await this.startApp().then(AppHelper.signalListening).catch(Log.exit.bind(Log));
+    try {
+      await this.startApp();
+      AppHelper.signalListening(this.server);
+    } catch (err) {
+      Log.exit(err);
+    }
   }
 
   async startApp() {
@@ -29,7 +35,8 @@ class App {
     this.server.on("error", AppHelper.serverErrorListening);
     this.server.on("close", Log.info.bind(Log));
     this.server.on("listening", async () => {
-      await AppHelper.serverListening(this.server).then(this.initialize());
+      await AppHelper.serverListening(this.server);
+      await this.initialize();
     });
     this.server.listen(this.PORT);
     return this.server;
@@ -51,6 +58,7 @@ class App {
     this.app.use(new MorganLogMiddleware().success);
     this.app.use(new MorganLogMiddleware().error);
     this.app.use("/upload", express.static(path.resolve("src", "upload")));
+    this.app.options("*");
     this.app.use(
       cors({
         origin: "*",
@@ -71,7 +79,10 @@ class App {
   }
 
   async initializeSocketApp() {
-    await new SocketAppHelper(this.server).initialize().then(Log.info.bind(Log)).catch(Log.exit.bind(Log));
+    await new SocketServer(this.server)
+      .initialize()
+      .then(Log.info.bind(Log))
+      .catch(Log.exit.bind(Log));
   }
 
   async initializeGlobalMiddleware() {

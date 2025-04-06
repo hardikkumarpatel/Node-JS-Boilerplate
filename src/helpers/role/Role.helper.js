@@ -1,4 +1,4 @@
-import { ROLES } from "@/config/role/Roles.config";
+import { ROLES } from "@/constant";
 
 class RoleHelper {
   constructor() {

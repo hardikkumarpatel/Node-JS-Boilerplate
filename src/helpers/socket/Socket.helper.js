@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { Log } from "@/helpers";
 
-class SocketAppHelper {
+class SocketServer {
   constructor(http) {
     this.IO = new Server(http, {
       cors: {
@@ -29,7 +29,7 @@ class SocketAppHelper {
         }
       }
     });
-    return `Socket engine connected and initialized 🚀`;
+    return `🔌 WebSocket engine initialized successfully`;
   }
 
   static async emitSocketEvents(req, room, event, payload) {
@@ -44,4 +44,4 @@ class SocketAppHelper {
   }
 }
 
-export default SocketAppHelper;
+export default SocketServer;

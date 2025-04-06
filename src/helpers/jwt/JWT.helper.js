@@ -1,5 +1,6 @@
 import Jwt from "jsonwebtoken";
-import { Config, IConfig } from "@/config";
+import { Config } from "@/config";
+import { Env } from "@/constant";
 
 class JWTHelper {
   constructor() {}
@@ -11,9 +12,9 @@ class JWTHelper {
         id,
         email
       },
-      Config.get(IConfig.ACCESS_TOKEN_SECRET),
+      Config.getEnv(Env.ACCESS_TOKEN_SECRET),
       {
-        expiresIn: Config.get(IConfig.ACCESS_TOKEN_EXPIRY)
+        expiresIn: Config.getEnv(Env.ACCESS_TOKEN_EXPIRY)
       }
     );
   };
@@ -24,8 +25,8 @@ class JWTHelper {
       {
         id
       },
-      Config.get(IConfig.REFRESH_TOKEN_SECRET),
-      { expiresIn: Config.get(IConfig.REFRESH_TOKEN_EXPIRY) }
+      Config.getEnv(Env.REFRESH_TOKEN_SECRET),
+      { expiresIn: Config.getEnv(Env.REFRESH_TOKEN_EXPIRY) }
     );
   };
 
@@ -36,9 +37,9 @@ class JWTHelper {
         id,
         email
       },
-      Config.get(IConfig.RESET_PASSWORD_TOKEN_SECRET),
+      Config.getEnv(Env.RESET_PASSWORD_TOKEN_SECRET),
       {
-        expiresIn: Config.get(IConfig.RESET_PASSWORD_TOKEN_EXPIRY)
+        expiresIn: Config.getEnv(Env.RESET_PASSWORD_TOKEN_EXPIRY)
       }
     );
   };

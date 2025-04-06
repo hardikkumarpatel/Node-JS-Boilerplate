@@ -1,17 +1,18 @@
-import { Config, IConfig } from "@/config";
+import { Config } from "@/config";
+import { Env } from "@/constant";
 import { Log } from "@/helpers";
 import { Sequelize } from "sequelize";
 
 export default class SequelizeDBConnection {
   static connection = new Sequelize(
-    Config.get(IConfig.DB_NAME),
-    Config.get(IConfig.DB_USER),
-    Config.get(IConfig.DB_PASS),
+    Config.getEnv(Env.DB_NAME),
+    Config.getEnv(Env.DB_USER),
+    Config.getEnv(Env.DB_PASS),
     {
-      host: Config.get(IConfig.DB_HOST),
+      host: Config.getEnv(Env.DB_HOST),
       logging: false,
       schema: "public",
-      port: Config.get(IConfig.DB_PORT),
+      port: Config.getEnv(Env.DB_PORT),
       dialect: "postgres"
     }
   );

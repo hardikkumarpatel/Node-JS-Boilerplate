@@ -1,3 +1,3 @@
-import Config, { IConfig } from "./env/Env.config";
+import Config from "@/config/env/Env.config";
 
-export { Config, IConfig };
+export { Config };

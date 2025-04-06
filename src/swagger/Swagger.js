@@ -2,8 +2,9 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJSDocs from "swagger-jsdoc";
 import basicAuth from "express-basic-auth";
 import { SWAGGER_OPTIONS } from "@/swagger/Swagger.options";
-import { Config, IConfig } from "@/config";
+import { Config } from "@/config";
 import { ApiAsyncHelper } from "@/helpers";
+import { Env } from "@/constant";
 class SwaggerApp {
   constructor(app) {
     this.app = app;
@@ -14,7 +15,7 @@ class SwaggerApp {
       "/docs",
       basicAuth({
         users: {
-          root: Config.get(IConfig.AUTH_PASSWORD)
+          root: Config.getEnv(Env.AUTH_PASSWORD)
         },
         challenge: true
       })
@@ -31,12 +32,12 @@ class SwaggerApp {
     );
     this.app.get(
       "/docs.json",
-      ApiAsyncHelper.AsyncHandlerHelper(async (req, res) => {
+      ApiAsyncHelper.AsyncHandler(async (req, res) => {
         res.setHeader("Content-Type", "application/json");
         res.send(swaggerJSDocs(SWAGGER_OPTIONS));
       })
     );
-    return `Swagger docs available at http://localhost:${Config.get(IConfig.PORT)} 📗`;
+    return `📘 Swagger docs available at: http://localhost:${Config.getEnv(Env.PORT)}`;
   }
 }
 

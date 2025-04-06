@@ -1,6 +1,8 @@
 import HTTP from "node:http";
-import { Config, IConfig } from "@/config";
+
+import { Config } from "@/config";
 import { Log } from "@/helpers";
+import { Env } from "@/constant";
 
 class AppHelper {
   static async serverErrorListening(error) {
@@ -14,7 +16,7 @@ class AppHelper {
         return process.exit(1);
 
       case "EADDRINUSE":
-        Log.error(`PORT ${Config.get(IConfig.PORT)} is already in use`);
+        Log.error(`PORT ${Config.getEnv(Env.PORT)} is already in use`);
         return process.exit(1);
 
       default:
@@ -25,7 +27,8 @@ class AppHelper {
   static async serverListening(server) {
     if (server instanceof HTTP.Server) {
       const address = server.address();
-      Log.info(`Express engine is running on ${address.port} 🚀`);
+      Log.info("✅ Server is up and running!");
+      Log.info(`🚀 Express listening on port ${address.port}`);
     }
   }
 
@@ -65,7 +68,7 @@ class AppHelper {
   }
 
   static async validate() {
-    if (!Config.get(IConfig.PORT) || !Config.get(IConfig.NODE_ENV)) {
+    if (!Config.getEnv(Env.PORT) || !Config.getEnv(Env.NODE_ENV)) {
       Log.error(
         "The node env or PORT mapping is missing! Please check the .env file for the correct mapping."
       );

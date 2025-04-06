@@ -7,6 +7,6 @@
       "@/*": ["src/*"]
     }
   },
-  "exclude": ["build", "**/build/*", "node_modules"],
+  "exclude": ["dist", "**/dist/*", "node_modules"],
   "include": ["src/**/*"]
 }
