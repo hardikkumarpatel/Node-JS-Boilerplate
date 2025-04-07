@@ -7,10 +7,11 @@ import helmet from "helmet";
 import cookies from "cookie-parser";
 import { ApiCommonHelper, AppHelper, Log, SocketServer } from "@/helpers";
 import { ApiErrorMiddleware, MorganLogMiddleware } from "@/middleware";
-import routes from "@/routes";
 import { Config } from "@/config";
 import { SwaggerApp } from "@/swagger";
 import { Env } from "@/constant";
+import { LocaleService, I18n } from "@/i18n";
+import Routes from "@/routes";
 import { MongoDBConnection } from "@/database/mongodb";
 import { SequelizeDBConnection } from "@/database/sql";
 
@@ -23,7 +24,7 @@ class App {
   async run() {
     try {
       await this.startApp();
-      AppHelper.signalListening(this.server);
+      await AppHelper.signalListening(this.server);
     } catch (err) {
       Log.exit(err);
     }
@@ -54,7 +55,7 @@ class App {
 
   async initializeMiddleware() {
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(express.json({ limit: "6kb" }));
+    this.app.use(express.json({ limit: "10mb" }));
     this.app.use(new MorganLogMiddleware().success);
     this.app.use(new MorganLogMiddleware().error);
     this.app.use("/upload", express.static(path.resolve("src", "upload")));
@@ -65,13 +66,15 @@ class App {
         methods: ["GET", "HEAD", "PUT", "OPTIONS", "PATCH", "POST", "DELETE"]
       })
     );
+    this.app.disable("x-powered-by");
     this.app.use(helmet({ contentSecurityPolicy: false }));
     this.app.use(cookies());
   }
 
   async initializeRoutes() {
     this.app.use("/health", ApiCommonHelper.useHealthHelper);
-    this.app.use(routes);
+    this.app.use(new LocaleService(new I18n().init()).middleware);
+    this.app.use("/api/v1", Routes.getRoutes());
   }
 
   async initializeSwaggerDocs() {

@@ -32,7 +32,7 @@ class AppHelper {
     }
   }
 
-  static signalListening(http) {
+  static async signalListening(http) {
     process
       .on("SIGINT", async () => {
         try {

@@ -1,4 +1,5 @@
 import { getReasonPhrase, StatusCodes } from "http-status-codes";
+import { Config } from "@/config";
 
 class ApiErrorResponseHelper extends Error {
   constructor(
@@ -18,15 +19,17 @@ class ApiErrorResponseHelper extends Error {
     this.message = message;
     this.timestamp = Date.now();
     this.data = null;
-    this.errors = [
-      {
-        message: errors,
-        extensions: {
-          code: getReasonPhrase(this.statusCode),
-          stacktrace: this.stack ? this.stack.split("\n").map((line) => line.trim()) : []
-        }
+    this.errors = {
+      message: errors,
+      extensions: {
+        code: getReasonPhrase(this.statusCode),
+        stacktrace: Config.isProduction()
+          ? []
+          : this.stack
+            ? this.stack.split("\n").map((line) => line.trim())
+            : []
       }
-    ];
+    };
   }
 }
 

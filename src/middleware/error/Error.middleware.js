@@ -24,12 +24,11 @@ class ApiErrorMiddleware {
       Log.error(error.message, error);
     }
     if (Config.isProduction()) {
-      error.errors.map((err) => {
-        if (err.extensions && err.extensions.stacktrace) {
-          err.extensions.stacktrace = [];
-        }
-      });
+      if (error.errors.extensions && error.errors.extensions.stacktrace) {
+        error.errors.extensions.stacktrace = [];
+      }
     }
+
     const response = {
       ...error
     };

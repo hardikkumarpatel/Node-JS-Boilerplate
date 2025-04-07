@@ -1,13 +1,10 @@
 import { StatusCodes } from "http-status-codes";
-import { ApiAsyncHelper, ApiResponseHelper } from "@/helpers";
+import { ApiAsyncHelper } from "@/helpers";
+import BaseController from "@/controller/Base/BaseController";
 
-class UserController {
-  constructor() {}
-
+class UserController extends BaseController {
   static getUsersController = ApiAsyncHelper.AsyncHandler(async (req, res) => {
-    return res
-      .status(StatusCodes.OK)
-      .json(new ApiResponseHelper(StatusCodes.OK, "Users fetched successfully", []));
+    return this.SuccessResponse(res, StatusCodes.OK, "Users fetched successfully", []);
   });
 }
 

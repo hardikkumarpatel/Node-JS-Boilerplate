@@ -124,6 +124,10 @@ docker build -t node-app .
 - [Winston](https://github.com/winstonjs/winston)
 - Winston is a flexible logging library for Node.js. It supports multiple logging levels, various output destinations, and custom formatting.
 
+## 🌐 i18n
+
+- i18n is a lightweight internationalization library for Node.js. It supports multiple locales, automatic language detection, customizable translation functions, and integrates easily as middleware in Express apps.
+
 ## 📜 Swagger
 
 - Swagger docs available at the following URL.
@@ -137,6 +141,6 @@ docker build -t node-app .
   - Now will see a collection with all APIs and their sample examples (**NOTE:** it will automatically set the environment variables for all APIs).
   - You're all set. Enjoy!
 
-## 😈 Authors
+## 😈 Author
 
 - **Fullstack Team** ⚔️
