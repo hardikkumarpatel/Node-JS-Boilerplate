@@ -25,8 +25,8 @@ class App {
     try {
       await this.startApp();
       await AppHelper.signalListening(this.server);
-    } catch (err) {
-      Log.exit(err);
+    } catch (error) {
+      Log.exit("Error", new Error(error));
     }
   }
 
@@ -78,14 +78,21 @@ class App {
   }
 
   async initializeSwaggerDocs() {
-    await new SwaggerApp(this.app).initialize().then(Log.info.bind(Log)).catch(Log.exit.bind(Log));
+    try {
+      await new SwaggerApp(this.app).initialize();
+      Log.info(`📘 Swagger docs available at: http://localhost:${Config.getEnv(Env.PORT)}/docs`);
+    } catch (error) {
+      Log.error("Swagger Error", new Error(error));
+    }
   }
 
   async initializeSocketApp() {
-    await new SocketServer(this.server)
-      .initialize()
-      .then(Log.info.bind(Log))
-      .catch(Log.exit.bind(Log));
+    try {
+      await new SocketServer(this.server).initialize();
+      Log.info(`🔌 WebSocket engine initialized successfully`);
+    } catch (error) {
+      Log.error("Socket Error", new Error(error));
+    }
   }
 
   async initializeGlobalMiddleware() {

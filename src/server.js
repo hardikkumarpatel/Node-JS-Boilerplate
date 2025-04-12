@@ -5,7 +5,7 @@ async function bootstrap() {
   try {
     await new App().run();
   } catch (error) {
-    Log.exit(error);
+    Log.exit("Error", new Error(error));
   }
 }
 

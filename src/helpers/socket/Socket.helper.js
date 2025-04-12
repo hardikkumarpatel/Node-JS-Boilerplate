@@ -29,7 +29,6 @@ class SocketServer {
         }
       }
     });
-    return `🔌 WebSocket engine initialized successfully`;
   }
 
   static async emitSocketEvents(req, room, event, payload) {

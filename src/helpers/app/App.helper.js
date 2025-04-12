@@ -27,6 +27,7 @@ class AppHelper {
   static async serverListening(server) {
     if (server instanceof HTTP.Server) {
       const address = server.address();
+      Log.info(`🟢 OK`);
       Log.info("✅ Server is up and running!");
       Log.info(`🚀 Express listening on port ${address.port}`);
     }

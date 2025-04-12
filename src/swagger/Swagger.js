@@ -37,7 +37,6 @@ class SwaggerApp {
         res.send(swaggerJSDocs(SWAGGER_OPTIONS));
       })
     );
-    return `📘 Swagger docs available at: http://localhost:${Config.getEnv(Env.PORT)}`;
   }
 }
 
